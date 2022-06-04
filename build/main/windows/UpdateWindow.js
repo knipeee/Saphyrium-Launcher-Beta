@@ -1,5 +1,5 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
+var __importDefault = (this && this.__importDefault) || function(mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -8,9 +8,11 @@ const electron_log_1 = __importDefault(require("electron-log"));
 const path_1 = __importDefault(require("path"));
 const os_1 = __importDefault(require("os"));
 let updateWindow = undefined;
+
 function getWindow() {
     return updateWindow;
 }
+
 function destroyWindow() {
     if (!updateWindow) {
         return;
@@ -19,6 +21,7 @@ function destroyWindow() {
     updateWindow.close();
     updateWindow = undefined;
 }
+
 function createWindow() {
     destroyWindow();
     electron_log_1.default.info('Create Update Window');
@@ -41,8 +44,7 @@ function createWindow() {
         const rendererPort = process.argv[2];
         updateWindow.loadURL(`http://localhost:${rendererPort}#splash`);
         updateWindow.webContents.openDevTools();
-    }
-    else {
+    } else {
         updateWindow.loadFile(path_1.default.join(electron_1.app.getAppPath(), 'renderer', 'index.html'), { hash: 'splash' });
     }
     updateWindow.once('ready-to-show', () => {
