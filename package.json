@@ -2,7 +2,7 @@
     "name": "paladium-group",
     "version": "1.0.8",
     "description": "Launcher of paladium-pvp.fr",
-    "main": "src/main/main.js",
+    "main": "build/main/main.js",
     "author": "Dysey",
     "scripts": {
         "start": "electron .",
