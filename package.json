@@ -2,7 +2,7 @@
     "name": "paladium-group",
     "version": "1.0.8",
     "description": "Launcher of paladium-pvp.fr",
-    "main": "build/main/main.js",
+    "main": "build/main/index.js",
     "author": "Dysey",
     "dependencies": {
         "@aws-crypto/crc32": "^2.0.1",
