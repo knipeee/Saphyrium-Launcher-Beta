@@ -57,7 +57,7 @@ function createWindow() {
         }
     });
 }
-exports.default = {
+exports = {
     sendWindowWebContentBool,
     getWindow,
     createWindow,
