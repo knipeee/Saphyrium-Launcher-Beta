@@ -43,7 +43,7 @@ const deleteFileNotWhiteListed = (filesList, whitelist, rootPath) => {
             }
         }
         if (!whitelisted) {
-            log.default.info('Suppression du fichier :', element);
+            log.info('Suppression du fichier :', element);
             fs.unlinkSync(element);
         }
     });
@@ -125,17 +125,17 @@ function downloadService(distributionConfig, rootPath) {
                     return;
                 }
             }
-            log.default.info('Download', item.url, 'at', fullFolderPath);
+            log.info('Download', item.url, 'at', fullFolderPath);
             yield download(item.url, fullFolderPath);
             currFiles++;
             eventEmitter.emit('progress', { done: currFiles, total: totalFiles });
             // Need to be extracted?
             if (library.extract) {
-                log.default.info('Extract', fullPath, 'in', nativeDirectory);
+                log.info('Extract', fullPath, 'in', nativeDirectory);
                 try {
                     new Zip(fullPath).extractAllTo(nativeDirectory, true);
                 } catch (e) {
-                    log.default.warn(e);
+                    log.warn(e);
                 }
             }
         })));
@@ -162,7 +162,7 @@ function downloadService(distributionConfig, rootPath) {
                     return;
                 }
             }
-            log.default.info('Download', item.url, 'at', fullFolderPath);
+            log.info('Download', item.url, 'at', fullFolderPath);
             yield download(item.url, fullFolderPath);
             currFiles++;
             eventEmitter.emit('progress', { done: currFiles, total: totalFiles });
@@ -170,7 +170,7 @@ function downloadService(distributionConfig, rootPath) {
         // Remove unused files
         deleteFileNotWhiteListed(librariesFilesOnDisk, distributionConfig.whitelist, rootPath);
         // assets mods, resourcepacks, shaderpacks
-        log.default.info('Check for mods, resourcepacks, shaderpacks');
+        log.info('Check for mods, resourcepacks, shaderpacks');
         librariesFilesOnDisk = [
             ...recur(path.join(rootPath, 'mods')),
             ...recur(path.join(rootPath, 'resourcepacks')),
@@ -197,7 +197,7 @@ function downloadService(distributionConfig, rootPath) {
                     return;
                 }
             }
-            log.default.info('Download', asset.url, 'at', fullFolderPath);
+            log.info('Download', asset.url, 'at', fullFolderPath);
             yield download(asset.url, fullFolderPath);
             currFiles++;
             eventEmitter.emit('progress', { done: currFiles, total: totalFiles });
@@ -207,7 +207,7 @@ function downloadService(distributionConfig, rootPath) {
         // assets
         const assetFullPath = path.join(rootPath, 'assets');
         // Check assetIndexes
-        log.default.info('Check for assetIndexes...');
+        log.info('Check for assetIndexes...');
         const assetIndexData = distributionConfig.assetIndex;
         const assetIndexesFullPath = path.join(assetFullPath, 'indexes');
         const assetIndexesFilePath = path.join(assetIndexesFullPath, assetIndexData.id + '.json');
@@ -221,13 +221,13 @@ function downloadService(distributionConfig, rootPath) {
             }
         }
         if (needDownload) {
-            log.default.info('Download', assetIndexData.url, 'at', assetIndexesFullPath);
+            log.info('Download', assetIndexData.url, 'at', assetIndexesFullPath);
             yield download(assetIndexData.url, assetIndexesFullPath);
         }
         currFiles++;
         eventEmitter.emit('progress', { done: currFiles, total: totalFiles });
         // Check assetObjects
-        log.default.info('Check for assetObjects...');
+        log.info('Check for assetObjects...');
         const assetObjectsFullPath = path.join(assetFullPath, 'objects');
         librariesFilesOnDisk = recur(assetObjectsFullPath);
         for (const object of Object.entries(assetObjectsConfig.objects)) {
@@ -249,7 +249,7 @@ function downloadService(distributionConfig, rootPath) {
                 continue;
             }
             const downloadUrl = resourceUrl + subHash + '/' + value.hash;
-            log.default.info('Download', downloadUrl, 'at', subAsset);
+            log.info('Download', downloadUrl, 'at', subAsset);
             fs.writeFileSync(subAssetFile, yield download(downloadUrl));
             currFiles++;
             eventEmitter.emit('progress', { done: currFiles, total: totalFiles });
@@ -257,7 +257,7 @@ function downloadService(distributionConfig, rootPath) {
         // Remove unused files
         deleteFileNotWhiteListed(librariesFilesOnDisk, distributionConfig.whitelist, rootPath);
         // versions
-        log.default.info('Check for client version...');
+        log.info('Check for client version...');
         const versionsFullPath = path.join(rootPath, 'versions', distributionConfig.assetIndex.id);
         const versionsFilePath = path.join(rootPath, 'versions', distributionConfig.assetIndex.id, distributionConfig.assetIndex.id + '.jar');
         needDownload = false;
@@ -270,12 +270,12 @@ function downloadService(distributionConfig, rootPath) {
             }
         }
         if (needDownload) {
-            log.default.info('Download', distributionConfig.client, 'at', versionsFilePath);
+            log.info('Download', distributionConfig.client, 'at', versionsFilePath);
             fs.writeFileSync(versionsFilePath, yield download(distributionConfig.client));
         }
         currFiles++;
         eventEmitter.emit('progress', { done: currFiles, total: totalFiles });
-        log.default.info('Download service done');
+        log.info('Download service done');
         eventEmitter.emit('finish', true);
     });
 }

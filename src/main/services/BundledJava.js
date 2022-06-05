@@ -56,7 +56,7 @@ function DownloadJRE(version, customName) {
         }
         // Check if not already installed
         if (fs.existsSync(path.join(electron.app.getPath('userData'), 'java', typeStr))) {
-            log.default.info(`JRE ${version} already installed`);
+            log.info(`JRE ${version} already installed`);
             eventEmitter.emit('progress', { done: 6, total: 6 });
             return resolve(); // Stop here, already installed
         }
@@ -74,15 +74,15 @@ function DownloadJRE(version, customName) {
         eventEmitter.emit('progress', { done: 5, total: 6 });
         const zipPath = path.join(destFolder, typeStr + '.zip');
         const file = fs.createWriteStream(zipPath);
-        log.default.info('Download JRE', version, file.path);
+        log.info('Download JRE', version, file.path);
         _request.pipe(file);
         file.on('error', (e) => __awaiter(this, void 0, void 0, function* () {
-            log.default.error(`Failed to download asset ${downloadUrl} due to: ${e}`);
+            log.error(`Failed to download asset ${downloadUrl} due to: ${e}`);
             return reject();
         }));
         _request.on('response', (data) => {
             if (data.statusCode === 404) {
-                log.default.error(`Failed to download ${downloadUrl} due to: File not found...`);
+                log.error(`Failed to download ${downloadUrl} due to: File not found...`);
                 return reject();
             }
         });
@@ -94,7 +94,7 @@ function DownloadJRE(version, customName) {
                     fs.unlinkSync(zipPath);
             }
             catch (e) {
-                log.default.error(`Failed to unzip ${file.path} due to: ${e}`);
+                log.error(`Failed to unzip ${file.path} due to: ${e}`);
                 return reject();
             }
             eventEmitter.emit('progress', { done: 6, total: 6 });

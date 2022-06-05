@@ -18,7 +18,7 @@ const os = require('os');
 function startMinecraft(rootPath, options, launchArguments) {
     return __awaiter(this, void 0, void 0, function*() {
         return new Promise(resolve => {
-            log.default.debug('Launch Arguments:', launchArguments.join(' '));
+            log.debug('Launch Arguments:', launchArguments.join(' '));
             let minecraft = child.spawn(options.javaPath, launchArguments, {
                 cwd: rootPath,
                 detached: true

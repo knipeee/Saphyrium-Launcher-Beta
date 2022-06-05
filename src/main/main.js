@@ -1,30 +1,30 @@
-const electron = require('electron');
+const { app, shell } = require('electron');
 const UpdateWindow = require("./windows/UpdateWindow");
 const log = require("electron-log");
 
 require('electron-debug')({ showDevTools: !![] });
 
 global.share = { auth: { access_token: "", uuid: "", xuid: "", name: "" } };
-const gotTheLock = electron.app.requestSingleInstanceLock();
+const gotTheLock = app.requestSingleInstanceLock();
 
 if (!gotTheLock) {
-    electron.app.quit();
+    app.quit();
 } else {
-    electron.app.whenReady().then(() => {
-        log.default.info('ready');
-        UpdateWindow.default.createWindow();
+    app.whenReady().then(() => {
+        log.info('ready');
+        UpdateWindow.createWindow();
     });
 }
 
-electron.app.on('web-contents-created', (ovella, remyngton) => {
+app.on('web-contents-created', (ovella, remyngton) => {
     remyngton.setWindowOpenHandler(({ url }) => {
-        electron.shell.openExternal(url);
+        shell.openExternal(url);
         return { action: 'deny' };
     });
 });
 
-electron.app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') electron.app.quit();
+app.on('window-all-closed', () => {
+    if (process.platform !== 'darwin') app.quit();
 });
 
 require('./events');

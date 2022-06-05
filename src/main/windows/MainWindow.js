@@ -39,14 +39,14 @@ function destroyWindow() {
     if (!mainWindow) {
         return;
     }
-    log.default.info('destroy Main Window');
+    log.info('destroy Main Window');
     mainWindow.close();
     mainWindow = null;
 }
 
 function createWindow() {
     destroyWindow();
-    log.default.info('Create Main Window');
+    log.info('Create Main Window');
     return new Promise(resolve => {
         mainWindow = new electron.BrowserWindow({
             width: 1280,
@@ -90,7 +90,8 @@ function createWindow() {
         });
     });
 }
-exports.default = {
+
+module.exports = {
     getWindow,
     sendWindowWebContentString,
     sendWindowWebContentAny,

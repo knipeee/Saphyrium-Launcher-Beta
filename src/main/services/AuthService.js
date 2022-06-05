@@ -27,7 +27,7 @@ electron.ipcMain.handle('getAccounts', () => __awaiter(void 0, void 0, void 0, f
     const accounts = store.get('accounts');
     if (accounts === null || accounts === undefined || accounts.length <= 0)
         return;
-    log.default.info('getAccounts');
+    log.info('getAccounts');
     let res = [];
     accounts.forEach(data => {
         res.push({
@@ -35,7 +35,7 @@ electron.ipcMain.handle('getAccounts', () => __awaiter(void 0, void 0, void 0, f
             skinUrl: data.skinUrl,
         });
     });
-    log.default.info(JSON.stringify(res));
+    log.info(JSON.stringify(res));
     return res;
 }));
 
@@ -120,7 +120,7 @@ function loginUser(account, changeAccount = false, transparent = false) {
             refreshToken = authInfo.auth_token.refresh_token;
             mcInfo = yield authenticationHandler.getMCInfoWithToken(accessToken);
         } catch (e) {
-            log.default.error('Error, the token is expired.');
+            log.error('Error, the token is expired.');
             yield MSAuthWindow(!changeAccount);
             return;
         }
@@ -145,7 +145,7 @@ function logout() {
     });
 }
 electron.ipcMain.on('changeAccount', (event, name) => __awaiter(void 0, void 0, void 0, function*() {
-    log.default.info('changeAccount', name);
+    log.info('changeAccount', name);
     if (name === global.share.auth.name) // Alreay with this account
         return;
     store.set('current-account', name);
@@ -158,13 +158,13 @@ electron.ipcMain.on('changeAccount', (event, name) => __awaiter(void 0, void 0, 
     const accounts = store.get('accounts');
     const accIndex = accounts.findIndex((account) => account.username === name);
     if (accIndex === -1) {
-        log.default.error("Can't find the token for " + name);
+        log.error("Can't find the token for " + name);
         return;
     }
     yield loginUser(accounts[accIndex], true);
 }));
 electron.ipcMain.on('deleteAccount', (event, username) => __awaiter(void 0, void 0, void 0, function*() {
-    log.default.info('deleteAccount', username);
+    log.info('deleteAccount', username);
     const accounts = store.get('accounts');
     const newAccounts = accounts.filter((account) => account.username !== username);
     store.set('accounts', newAccounts);
@@ -174,7 +174,7 @@ electron.ipcMain.on('deleteAccount', (event, username) => __awaiter(void 0, void
         MainWindow.sendWindowWebContent('updateAccounts', { id: username });
 }));
 electron.ipcMain.on('logout', () => __awaiter(void 0, void 0, void 0, function*() {
-    log.default.info('logout');
+    log.info('logout');
     logout();
 }));
 
@@ -209,7 +209,7 @@ function MSAuthWindow(hidden = false) {
             }
         });
         authWindow.on('closed', () => {
-            log.default.info('authWindow is closed');
+            log.info('authWindow is closed');
             if (authWindowclosedByUser) {
                 LoginWindow.sendWindowWebContentBool('setLoginBtn', false);
             }
@@ -280,7 +280,7 @@ exports.default = () => __awaiter(void 0, void 0, void 0, function*() {
     const accounts = store.get('accounts');
     const accIndex = accounts.findIndex((account) => account.username === currAccount);
     if (accIndex > -1) {
-        log.default.info('Already login. Get account data.');
+        log.info('Already login. Get account data.');
         yield loginUser(accounts[accIndex]);
     } else {
         yield LoginWindow.createWindow();

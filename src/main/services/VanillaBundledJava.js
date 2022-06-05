@@ -44,7 +44,7 @@ function DownloadVanillaJRE(version, customName) {
                 break;
         }
         if (manifestUrl === null || manifestUrl === undefined) {
-            log.default.error(`Failed to download vanilla JRE ${version}`);
+            log.error(`Failed to download vanilla JRE ${version}`);
             return reject();
         }
         let manifestData = (yield axios.get(manifestUrl)).data;
@@ -68,10 +68,10 @@ function DownloadVanillaJRE(version, customName) {
                 }
             }
             if (needDownload) {
-                log.default.info('before', fullFolderPath);
+                log.info('before', fullFolderPath);
                 fullFolderPath = fullFolderPath.replace('jre.bundle/', '');
-                log.default.info('after', fullFolderPath);
-                log.default.info('Download', value.downloads.raw.url, 'at', fullFolderPath);
+                log.info('after', fullFolderPath);
+                log.info('Download', value.downloads.raw.url, 'at', fullFolderPath);
                 yield(0, download)(value.downloads.raw.url, fullFolderPath);
             }
             currFiles++;
@@ -83,7 +83,7 @@ function DownloadVanillaJRE(version, customName) {
 exports.DownloadVanillaJRE = DownloadVanillaJRE;
 
 function VanillaBundledJavaPath(version) {
-    log.default.info('VanillaBundledJavaPath', version);
+    log.info('VanillaBundledJavaPath', version);
     return path.join(electron.app.getPath('userData'), 'java', 'vanilla', version, os.platform() === 'win32' ? path.default.join('bin', 'java') : 'Contents/Home/bin/java');
 }
 exports.VanillaBundledJavaPath = VanillaBundledJavaPath;

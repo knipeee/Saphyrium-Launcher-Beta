@@ -21,14 +21,14 @@ function destroyWindow() {
     if (!loginWindow) {
         return;
     }
-    log.default.info('destroy Login Window');
+    log.info('destroy Login Window');
     loginWindow.close();
     loginWindow = undefined;
 }
 
 function createWindow() {
     destroyWindow();
-    log.default.info('Create Update Window');
+    log.info('Create Update Window');
     loginWindow = new electron.BrowserWindow({
         width: 616,
         height: 840,
@@ -57,7 +57,8 @@ function createWindow() {
         }
     });
 }
-exports = {
+
+module.exports = {
     sendWindowWebContentBool,
     getWindow,
     createWindow,
