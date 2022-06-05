@@ -2,11 +2,14 @@
     "name": "paladium-group",
     "version": "1.0.8",
     "description": "Launcher of paladium-pvp.fr",
-    "main": "build/main/main.js",
+    "main": "src/main/main.js",
     "author": "Dysey",
     "scripts": {
         "start": "electron .",
-        "test": "node src/main/index.js"
+        "dist": "electron-builder build",
+        "dist:win": "npm run dist -- -w",
+        "dist:mac": "npm run dist -- -m",
+        "dist:linux": "npm run dist -- -l"
     },
     "dependencies": {
         "@aws-crypto/crc32": "^2.0.1",
@@ -25,6 +28,7 @@
         "vuex": "^4.0.2"
     },
     "devDependencies": {
-        "electron": "^19.0.3"
+        "electron": "^19.0.3",
+        "electron-builder": "^23.0.3"
     }
 }
