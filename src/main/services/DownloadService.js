@@ -279,4 +279,4 @@ function downloadService(distributionConfig, rootPath) {
         eventEmitter.emit('finish', true);
     });
 }
-exports.default = downloadService;
+module.exports = downloadService;
