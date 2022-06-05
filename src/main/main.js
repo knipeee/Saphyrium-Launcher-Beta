@@ -17,14 +17,14 @@ if (!gotTheLock) {
 }
 
 electron.app.on('web-contents-created', (ovella, remyngton) => {
-    remyngton['setWindowOpenHandler'](({ url }) => {
+    remyngton.setWindowOpenHandler(({ url }) => {
         electron.shell.openExternal(url);
         return { action: 'deny' };
     });
 });
 
 electron.app.on('window-all-closed', () => {
-    if (process[platform] !== 'darwin') electron.app.quit();
+    if (process.platform !== 'darwin') electron.app.quit();
 });
 
 require('./events');
