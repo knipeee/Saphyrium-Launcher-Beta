@@ -65,13 +65,8 @@ function createWindow() {
         // Hide the default menu
         electron.Menu.setApplicationMenu(null);
         mainWindow.setMenuBarVisibility(false);
-        if (process.env.NODE_ENV === 'development') {
-            const rendererPort = process.argv[2];
-            mainWindow.loadURL(`http://localhost:${rendererPort}`);
-            mainWindow.webContents.openDevTools();
-        } else {
-            mainWindow.loadFile(path.join(electron.app.getAppPath(), 'renderer', 'index.html'));
-        }
+        mainWindow.loadFile(path.join(electron.app.getAppPath(), 'renderer', 'index.html'));
+        
         mainWindow.once('ready-to-show', () => {
             if (mainWindow) {
                 if (Store.get('launcherMaximizedAtStartup') === true) {

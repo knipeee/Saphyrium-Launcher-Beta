@@ -36,13 +36,7 @@ function createWindow() {
     // Hide the default menu
     electron.Menu.setApplicationMenu(null);
     updateWindow.setMenuBarVisibility(false);
-    if (process.env.NODE_ENV === 'development') {
-        const rendererPort = process.argv[2];
-        updateWindow.loadURL(`http://localhost:${rendererPort}#splash`);
-        updateWindow.webContents.openDevTools();
-    } else {
-        updateWindow.loadFile(path.join(electron.app.getAppPath(), 'renderer', 'index.html'), { hash: 'splash' });
-    }
+    updateWindow.loadFile(path.join(electron.app.getAppPath(), 'renderer', 'index.html'), { hash: 'splash' });
     updateWindow.once('ready-to-show', () => {
         if (updateWindow) {
             updateWindow.show();

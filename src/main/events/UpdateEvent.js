@@ -8,7 +8,7 @@ const log = require("electron-log");
 electron.ipcMain.on('checkForUpdates', () => {
     log.info('checkForUpdates ipcMain');
     if (process.env.NODE_ENV === 'development' && UpdateWindow.getWindow() !== null) {
-        AuthService();
+        AuthService.default();
     }
     else {
         updater.autoUpdater.checkForUpdates();

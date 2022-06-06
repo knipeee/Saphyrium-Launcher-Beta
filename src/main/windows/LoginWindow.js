@@ -44,13 +44,7 @@ function createWindow() {
     // Hide the default menu
     electron.Menu.setApplicationMenu(null);
     loginWindow.setMenuBarVisibility(false);
-    if (process.env.NODE_ENV === 'development') {
-        const rendererPort = process.argv[2];
-        loginWindow.loadURL(`http://localhost:${rendererPort}#login`);
-        loginWindow.webContents.openDevTools();
-    } else {
-        loginWindow.loadFile(path.join(electron.app.getAppPath(), 'renderer', 'index.html'), { hash: 'login' });
-    }
+    loginWindow.loadFile(path.join(electron.app.getAppPath(), 'renderer', 'index.html'), { hash: 'login' });
     loginWindow.once('ready-to-show', () => {
         if (loginWindow) {
             loginWindow.show();
