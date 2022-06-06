@@ -36,12 +36,10 @@
         "appId": "paladium-group",
         "productName": "paladium-group",
         "artifactName": "${productName}-setup-${version}.${ext}",
+        "files": ["src/**/*", "renderer/**/*", "package.json", "package-lock.json", "LICENSE", "README.md"],
         "directories": {
             "output": "dist"
         },
-        "files": [
-            "**/*"
-        ],
         "asar": true,
         "win": {
             "icon": "build/Icon.ico",
@@ -70,7 +68,7 @@
             "icon": "build/Icon.png",
             "target": [
                 {
-                    "target": "deb",
+                    "target": "appimage",
                     "arch": [
                         "x64"
                     ]
