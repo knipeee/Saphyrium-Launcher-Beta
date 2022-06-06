@@ -10,11 +10,8 @@ var __awaiter = (this && this.__awaiter) || function(thisArg, _arguments, P, gen
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function(mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const axios_1 = __importDefault(require("axios"));
+
+const axios = require("axios");
 class AuthenticationHandler {
     constructor(clientID, redirectUri) {
         if (!clientID) {
@@ -50,7 +47,7 @@ class AuthenticationHandler {
     }
     getMCInfoWithToken(mc_token) {
         return __awaiter(this, void 0, void 0, function*() {
-            return (yield(0, axios_1.default)({
+            return (yield(0, axios)({
                 url: 'https://api.minecraftservices.com/minecraft/profile',
                 method: 'get',
                 headers: {
@@ -67,7 +64,7 @@ class AuthenticationHandler {
             } else {
                 data += '&code=' + code + '&grant_type=authorization_code';
             }
-            return (yield(0, axios_1.default)({
+            return (yield(0, axios)({
                 url: 'https://login.live.com/oauth20_token.srf',
                 method: 'post',
                 data,
@@ -88,7 +85,7 @@ class AuthenticationHandler {
 			"RelyingParty": "http://auth.xboxlive.com",
 			"TokenType": "JWT"
  		}`;
-            return (yield(0, axios_1.default)({
+            return (yield(0, axios)({
                 url: 'https://user.auth.xboxlive.com/user/authenticate',
                 method: 'post',
                 data,
@@ -111,7 +108,7 @@ class AuthenticationHandler {
 			"RelyingParty": "rp://api.minecraftservices.com/",
 			"TokenType": "JWT"
 		}`;
-            return (yield(0, axios_1.default)({
+            return (yield(0, axios)({
                 url: 'https://xsts.auth.xboxlive.com/xsts/authorize',
                 method: 'post',
                 data,
@@ -127,7 +124,7 @@ class AuthenticationHandler {
             const data = `{
 			"identityToken": "XBL3.0 x=${token.DisplayClaims.xui[0].uhs};${token.Token}"
 	 		}`;
-            return (yield(0, axios_1.default)({
+            return (yield(0, axios)({
                 url: 'https://api.minecraftservices.com/authentication/login_with_xbox',
                 method: 'post',
                 data,
@@ -140,7 +137,7 @@ class AuthenticationHandler {
     }
     getMCInfo(mc_token) {
         return __awaiter(this, void 0, void 0, function*() {
-            return (yield(0, axios_1.default)({
+            return (yield(0, axios)({
                 url: 'https://api.minecraftservices.com/minecraft/profile',
                 method: 'get',
                 headers: {

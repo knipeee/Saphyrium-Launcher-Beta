@@ -1,0 +1,44 @@
+appId: 'Paladium group'
+productName: 'Paladium group'
+artifactName: '${productName}-setup-${version}.${ext}'
+
+asar: true
+compression: 'maximum'
+
+files:
+  - '!{dist,.gitignore}'
+
+# Windows Configuration
+win: 
+  target: 
+    - target: 'nsis'
+      arch: 'x64'
+
+# Windows Installer Configuration
+nsis:
+  oneClick: false
+  perMachine: false
+  allowElevation: true
+  allowToChangeInstallationDirectory: true
+
+# macOS Configuration
+mac:
+  target:
+    - target: 'dmg'
+      arch:
+        - 'x64'
+        - 'arm64'
+  artifactName: '${productName}-setup-${version}-${arch}.${ext}'
+  category: 'public.app-category.games'
+
+# Linux Configuration
+linux: 
+  target: 'AppImage'
+  maintainer: 'Paladium group'
+  vendor: 'Paladium group'
+  category: 'Game'
+
+
+directories:
+  buildResources: 'build'
+  output: 'dist'

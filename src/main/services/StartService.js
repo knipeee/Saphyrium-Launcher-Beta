@@ -1,25 +1,24 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
+var __awaiter = (this && this.__awaiter) || function(thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function(resolve) { resolve(value); }); }
+    return new(P || (P = Promise))(function(resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+
         function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const electron_log_1 = __importDefault(require("electron-log"));
+const log = require("electron-log");
 const path = require('path');
 const child = require('child_process');
 const os = require('os');
+
 function startMinecraft(rootPath, options, launchArguments) {
-    return __awaiter(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function*() {
         return new Promise(resolve => {
-            electron_log_1.default.debug('Launch Arguments:', launchArguments.join(' '));
+            log.debug('Launch Arguments:', launchArguments.join(' '));
             let minecraft = child.spawn(options.javaPath, launchArguments, {
                 cwd: rootPath,
                 detached: true
@@ -31,6 +30,7 @@ function startMinecraft(rootPath, options, launchArguments) {
         });
     });
 }
+
 function getLaunchOptions(rootPath, options, config) {
     let args = config.arguments.game;
     const fields = {
@@ -51,23 +51,23 @@ function getLaunchOptions(rootPath, options, config) {
     };
     for (let index = 0; index < args.length; index++) {
         if (typeof args[index] === 'object')
-            args.splice(index, 2);
-        {
+            args.splice(index, 2); {
             if (Object.keys(fields).includes(args[index])) {
                 args[index] = fields[args[index]].replace(/\\/g, '/');
             }
         }
     }
     if (options.window) {
-        options.window.fullscreen
-            ? args.push('--fullscreen')
-            : args.push('--width', options.window.width, '--height', options.window.height);
+        options.window.fullscreen ?
+            args.push('--fullscreen') :
+            args.push('--width', options.window.width, '--height', options.window.height);
     }
     return args;
 }
+
 function startService(distributionConfig, rootPath, options) {
-    return __awaiter(this, void 0, void 0, function* () {
-        return new Promise((resolve) => __awaiter(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function*() {
+        return new Promise((resolve) => __awaiter(this, void 0, void 0, function*() {
             const args = [];
             // JVM
             let jvm = distributionConfig.arguments.jvm;
@@ -112,8 +112,7 @@ function startService(distributionConfig, rootPath, options) {
                                     return;
                                 break;
                         }
-                    }
-                    else {
+                    } else {
                         item = library.downloads.artifact;
                     }
                     if (item === null)
