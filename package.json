@@ -33,7 +33,7 @@
     },
     "build": {
         "appId": "paladium-group",
-        "productName": "Paladium-Group",
+        "productName": "paladium-group",
         "artifactName": "${productName}-setup-${version}.${ext}",
         "directories": {
             "output": "dist"
