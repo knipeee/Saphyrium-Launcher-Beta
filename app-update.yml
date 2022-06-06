@@ -1,0 +1,3 @@
+provider: generic
+url: https://download.paladium-pvp.fr/paladium/app/paladium/
+updaterCacheDirName: paladium-group-updater
