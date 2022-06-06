@@ -8,7 +8,7 @@ const log = require("electron-log");
 electron.ipcMain.on('checkForUpdates', () => {
     log.info('checkForUpdates ipcMain');
     if (process.env.NODE_ENV === 'development' && UpdateWindow.getWindow() !== null) {
-        (0, AuthService)();
+        AuthService();
     }
     else {
         updater.autoUpdater.checkForUpdates();
@@ -30,7 +30,7 @@ updater.autoUpdater.on('update-available', () => {
 
 updater.autoUpdater.on('update-not-available', () => {
     log.info('update-not-available');
-    (0, AuthService)();
+    AuthService.default();
 });
 
 updater.autoUpdater.on('update-downloaded', () => {

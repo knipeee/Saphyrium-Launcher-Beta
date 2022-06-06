@@ -147,4 +147,4 @@ class AuthenticationHandler {
         });
     }
 }
-exports.default = AuthenticationHandler;
+module.exports = AuthenticationHandler;

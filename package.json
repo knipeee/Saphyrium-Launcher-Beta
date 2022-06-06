@@ -30,5 +30,49 @@
     "devDependencies": {
         "electron": "^19.0.3",
         "electron-builder": "^23.0.3"
+    },
+    "build": {
+        "appId": "paladium-group",
+        "productName": "Paladium Group",
+        "directories": {
+            "output": "dist"
+        },
+        "files": [
+            "**/*"
+        ],
+        "asar": true,
+        "win": {
+            "icon": "build/Icon.ico",
+            "target": [{
+                "target": "nsis",
+                "arch": [
+                    "x64"
+                ]
+            }]
+        },
+        "mac": {
+            "icon": "build/Icon.icns",
+            "category": "public.app-category.games",
+            "target": [{
+                "target": "dmg",
+                "arch": [
+                    "x64"
+                ]
+            }]
+        },
+        "linux": {
+            "icon": "build/Icon.png",
+            "target": [{
+                "target": "deb",
+                "arch": [
+                    "x64"
+                ]
+            }]
+        },
+        "publish": [{
+            "provider": "generic",
+            "url": "https://download.paladium-pvp.fr/paladium/app/paladium/",
+            "updaterCacheDirName": "paladium-group-updater"
+        }]
     }
 }
