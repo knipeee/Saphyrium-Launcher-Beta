@@ -36,7 +36,7 @@
         "appId": "paladium-group",
         "productName": "paladium-group",
         "artifactName": "${productName}-setup-${version}.${ext}",
-        "files": ["src/**/*", "renderer/**/*", "package.json", "package-lock.json", "LICENSE", "README.md"],
+        "files": ["src/**/*", "renderer/**/*", "package.json", "LICENSE", "README.md"],
         "directories": {
             "output": "dist"
         },
